@@ -1,0 +1,48 @@
+{
+    "name": "Enhancing Oracle APEX Interactive Report Pagination",
+    "version": "1.0.0",
+    "description": "A dynamic action plug-in for enhancing Oracle APEX Interactive Report Pagination.",
+    "keywords": [
+        "APEX",
+        "Dynamic Action",
+        "Oracle APEX",
+        "Interactive Report",
+        "Navigation",
+        "PL/SQL"
+    ],
+    "homepage": "https://github.com/smart4solutions/apex_ir_pagination",
+    "bugs": {
+        "url": "https://github.com/smart4solutions/apex_ir_pagination/issues",
+        "email": "jkiesebrink@smart4solutions.nl"
+    },
+    "license": "MIT",
+    "commercial": "No",
+    "commercially_supported": "Yes",
+    "author": {
+        "name": "Jordy Kiesebrink",
+        "company": "SMART4Solutions",
+        "email": "jkiesebrink@smart4solutions.nl",
+        "url": "http://smart4solutions.nl/",
+        "twitter": "jkiesebrink"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/smart4solutions/apex_ir_pagination"
+    },
+    "oracle": {
+        "versions": [
+            "19c"
+        ],
+        "apex": {
+            "versions": [
+                "24.1"
+            ],
+            "plugin": {
+                "internalName": "NL.SMART4SOLUTIONS.IR.PAGINATION",
+                "type": "dynamic action",
+                "demo": "https://apex.oracle.com/pls/apex/r/s4s/smart4solutions/apex_ir_pagination",
+                "previewImage": "https://raw.githubusercontent.com/smart4solutions/apex_ir_pagination/main/preview.gif"
+            }
+        }
+    }
+}
