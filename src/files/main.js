@@ -7,7 +7,7 @@ var s4s_apex_ir_pagination = {
     'firstPageIcon': '',
     'lastPageTitle': '',
     'lastPageIcon': '',
-    
+
     'createPaginationSelect': function (currentPageStart, rowsPerPage, totalRows, totalPages) {
         // Create the <select> element
         let paginationSelect = document.createElement('select');
@@ -39,7 +39,7 @@ var s4s_apex_ir_pagination = {
         // Create the <li> element
         let paginationItem = document.createElement('li');
         paginationItem.className = 'a-IRR-pagination-item s4s-pagination-item';
-        
+
         // Hide button when configured
         if (s4s_apex_ir_pagination.buttonsBehavior === 'HIDE' && pageDisabled) {
             return paginationItem;
@@ -76,7 +76,7 @@ var s4s_apex_ir_pagination = {
 
         return button;
     },
-    
+
     'addPaginationControls': function (regionId, rowsPerPage, currentPageStart, totalRows, totalPages) {
         let regionElement = document.getElementById(regionId);
 
@@ -108,7 +108,7 @@ var s4s_apex_ir_pagination = {
         pagination.insertBefore(firstButton, pagination.firstChild);
         pagination.appendChild(lastButton);
     },
-    
+
     'initIRPagination': function () {
         // Set attribute values
         s4s_apex_ir_pagination.buttonsBehavior = this.action.attribute01;
@@ -120,18 +120,20 @@ var s4s_apex_ir_pagination = {
         // Find pagination label X – Y of Z
         let regionId = this.triggeringElement.id;
         let label = document.getElementById(regionId).querySelector('.a-IRR-pagination-label');
-        
-        console.debug('initIRPagination: regionId', regionId);
+
+        apex.debug('initIRPagination: regionId', regionId);
 
         // Extract pagination details from the label (start row, total rows, etc.)
-        let match = new RegExp(/(\d+)\s*-\s*(\d+)\s*[^\d]+\s*(\d+)/gi).exec(label.textContent.trim().replace(/,/g, ''));
+        let match = new RegExp(/(\d[\d.,\s]*)\s*-\s*(\d[\d.,\s]*)\s*[^\d]+(\d[\d.,\s]*)/gi)
+            .exec(label.textContent.trim());
+
         if (!match) return;
 
-        let rowsPerPage = parseInt(document.getElementById(regionId).querySelector('input[id$="_row_select"]').value);
-        let currentPageStart = parseInt(match[1]);
-        let totalRows = parseInt(match[3]);
+        let rowsPerPage = parseInt(document.getElementById(regionId).querySelector('input[id$="_row_select"]').value, 10);
+        let currentPageStart = parseInt(match[1].replace(/[^\d]/g, ''), 10);
+        let totalRows = parseInt(match[3].replace(/[^\d]/g, ''), 10);
 
-        console.debug('initIRPagination pagination', [rowsPerPage, currentPageStart, totalRows]);
+        apex.debug('initIRPagination pagination', [rowsPerPage, currentPageStart, totalRows]);
 
         // Inject the enhanced pagination controls
         s4s_apex_ir_pagination.addPaginationControls(regionId, rowsPerPage, currentPageStart, totalRows, Math.ceil(totalRows / rowsPerPage));
@@ -146,11 +148,11 @@ var s4s_apex_ir_pagination = {
             });
         });
     },
-    
+
     'toSeparatedPageNumber': function (num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    
+
     'getPaginationData': function (startRow, rowsPerPage) {
         return 'pgR_min_row=' + startRow + 'max_rows=' + rowsPerPage + 'rows_fetched=' + rowsPerPage;
     }
